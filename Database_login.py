@@ -1,7 +1,5 @@
 import csv
 import pandas as pd
-from tkinter import *
-from tkinter import ttk
 
 database= []
 def login():
