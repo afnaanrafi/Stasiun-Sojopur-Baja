@@ -55,19 +55,3 @@ def register():
         clearscreen("first")
     else:
         print('Username or number already exist')
-
-def clearscreen(screen):
-  if screen=="first":
-    e1.grid_forget()
-    e2.grid_forget()
-    e3.grid_forget()
-    e4.grid_forget()
-    mylabel1.grid_forget()
-    mylabel2.grid_forget()
-    mylabel3.grid_forget()
-    mylabel4.grid_forget()
-    mybutton1.grid_forget()
-    mybutton2.grid_forget()
-  elif screen == "pickfilm":
-    wrapper1.pack_forget()
-    wrapper2.pack_forget()
