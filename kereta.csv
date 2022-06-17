@@ -1,0 +1,4 @@
+id_kereta,nama_kereta,kota_tujuan,departure,tarif
+S0M,Manahan Expres,Purwokerto,07:00,Rp.117.000
+S0B,Balapan,Bandung,09:00,Rp.265.000
+S0K,Kontrakan,Jakarta,11:00,Rp.269.000
