@@ -194,3 +194,53 @@ def message5():
                     message='Do you want to Submit')
     if answer:
         datadisimpan1()
+
+#Halaman Pertama
+def firstscreen():
+    global mybutton1,mybutton2,mylabel1
+
+    mylabel1 = Label(text="Stasiun SojoPurbaja", borderwidth=4, bg="Light Green")
+    mylabel1.pack()
+    mybutton1 = Button(screen, 
+                  text='Register',
+                  borderwidth=2,
+                  command=register,
+                  bg = '#296d98',
+                  fg = 'white'  )
+    mybutton1.pack()
+
+    mybutton2 = Button(screen,
+                  text='Login',
+                  borderwidth = 2,
+                  command = login,
+                  bg = '#296d98',
+                  fg = 'white'  )
+    mybutton2.pack()
+
+def menujupilihkeretascreen():
+    global Username,Password
+    Username = euser.get()
+    Password= epass.get()
+    pilihkeretascreen()
+
+def clearscreen1():
+    bt_kembali1.pack_forget()
+    bt_kembali2.pack_forget()
+    e1.pack_forget()
+    e2.pack_forget()
+    e3.pack_forget()
+    e4.pack_forget()
+    e5.pack_forget()
+    e6.pack_forget()
+    e7.pack_forget()
+    e8.pack_forget()
+    mylabela.pack_forget()
+    mylabelb.pack_forget()
+    mylabelc.pack_forget()
+    mylabeld.pack_forget()
+    mylabele.pack_forget()
+    mylabelf.pack_forget()
+    mylabelg.pack_forget()
+    mylabelh.pack_forget()
+
+    firstscreen()
