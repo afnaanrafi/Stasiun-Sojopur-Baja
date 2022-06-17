@@ -244,3 +244,74 @@ def clearscreen1():
     mylabelh.pack_forget()
 
     firstscreen()
+    
+#Tampilan Home dan Tampilan Kursi
+def pilihkeretascreen():
+    euser.pack_forget()
+    mylabel1.pack_forget()
+    mylabel2.pack_forget()
+    epass.pack_forget()
+    bt_kembali1.pack_forget()
+    bt_kembali2.pack_forget()
+
+    global search,kereta,list_kereta,tujuan,searchbutton,bck_btn1
+
+    list_kereta= pd.read_csv('kereta.csv')
+    kereta = pd.DataFrame(list_kereta)
+
+    tujuan = (kereta["kota_tujuan"])
+    daftartujuan = tujuan.tolist()
+
+    search= ttk.Combobox(screen1, values=daftartujuan, state="readonly")
+    search.pack()
+    searchbutton= Button(screen1,text="Cari" ,command=fg)
+    searchbutton.pack()
+    bck_btn1=Button(screen1, text="Quit",command=quit)
+    bck_btn1.pack()
+def fg():
+    global search_kereta,lockereta,cari,tujuan_kota
+    bck_btn1.pack_forget()
+    search_kereta = kereta[kereta['kota_tujuan']==search.get()].index.item()
+    lockereta = kereta.loc[search_kereta].tolist()
+    tujuan_kota= lockereta[2]
+    cari=Button(screen1, text=lockereta,command=tampilkursi)
+    cari.pack()
+
+def tampilkursi():
+    search.pack_forget()
+    searchbutton.pack_forget()
+    cari.pack_forget()
+    global kursiavailable,kursiavb_btn,id,harga,bck_btn
+
+    seat = ['A1', 'A2', 'A3', 'A4', 
+        'B1', 'B2', 'B3', 'B4', 
+        'C1', 'C2', 'C3', 'C4', 
+        'D1', 'D2', 'D3', 'D4', 
+        'E1', 'E2', 'E3', 'E4', 
+        'F1', 'F2', 'F3', 'F4', 
+        'G1', 'G2', 'G3', 'G4', 
+        'H1', 'H2', 'H3', 'H4', 
+        'I1', 'I2', 'I3', 'I4', 
+        'J1', 'J2', 'J3', 'J4', 
+        'K1', 'K2', 'K3', 'K4', 
+        'L1', 'L2', 'L3', 'L4']
+    
+    id = lockereta[0]
+    harga= lockereta[4]
+    cek_kursi= pd.read_csv('data_pembelian.csv')
+    cek_kursi1 = cek_kursi.loc[cek_kursi["Kereta"] == id, "KodeKursi"]
+    cek_harga=cek_kursi.loc[cek_kursi["Harga"] == harga, "Harga"]
+    list_kursi = cek_kursi1.tolist()
+    print(list_kursi)
+    for i in list_kursi:
+        for j in seat:
+            if i == j:
+                print(j)
+                seat.remove(j)
+           
+    kursiavailable= ttk.Combobox(screen1, values=seat, state="readonly")
+    kursiavailable.pack()
+    kursiavb_btn=Button(screen1, text="Pilih Kursi",command=message5)
+    kursiavb_btn.pack()
+    bck_btn=Button(screen1, text="Kembali",command=bck)
+    bck_btn.pack()
