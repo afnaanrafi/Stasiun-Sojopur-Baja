@@ -315,3 +315,48 @@ def tampilkursi():
     kursiavb_btn.pack()
     bck_btn=Button(screen1, text="Kembali",command=bck)
     bck_btn.pack()
+#Penyimpanan Data 
+def datadisimpan1(): 
+    global kursi_dipilih,ktp,userData,df1,nama
+    kursi_dipilih= kursiavailable.get()
+    
+    userData = pd.read_csv('DatabaseAkun.csv')
+    df1= pd.DataFrame(userData)
+
+    search_akun = df1[df1['Username']==euser.get()].index.item()
+    akun = df1.loc[search_akun].tolist()
+    ktp= akun[3]
+    nama= akun[2]
+    matching_creds = (len(df1[(df1.Username == Username) & (df1.Password == Password)]) > 0)
+    if matching_creds:
+        simpan_data = pd.read_csv('data_pembelian.csv')
+        bl= pd.DataFrame(simpan_data)   
+        newbeli = {'NomorKTP' : [ktp],
+                        'Kereta' : [id],
+                        'KodeKursi' : [kursi_dipilih],
+                        'Harga' : [harga]}
+        pembelian = pd.DataFrame(newbeli)
+        pembelian.to_csv('data_pembelian.csv', mode='a', index=False, header=False)
+        output()
+def output():
+    dir_path = os.path.dirname(os.path.realpath(_file_))
+    pdf=FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial","B", size=14)
+    pdf.cell(200,10, txt='Stasiun SojopurBaja', ln=1, align="C")
+    pdf.set_font("Arial", size=12)
+    pdf.cell(100,10, txt="Nama Pembeli: {}".format(nama),ln=2, align="L")
+    pdf.cell(100,10, txt="No KTP: {}".format(ktp), ln=2, align="L")
+    pdf.cell(100,10, txt="Tujuan: {}".format(tujuan_kota), ln=2, align="L")        
+    pdf.cell(100,10, txt="Kursi Yang dipilih: {}".format(kursi_dipilih), ln=2, align="L")
+    pdf.cell(100,10, txt="Total Bayar: {}".format(harga), ln=1, align="C")
+    pdf.output("{}\\TIKET.pdf".format(dir_path))
+    
+    quit_btn=Button(screen1, text="Quit",command=quit)
+    quit_btn.pack()
+def quit():
+    screen.destroy()
+#----
+
+firstscreen()
+screen.mainloop()
